@@ -1,14 +1,14 @@
 # Bren-Hackaton
-## No código, são apresentados 3 cenários.
+## Código 1 - Sugestões de Produtos
 
-1°O primeiro Usando Apenas LangChain e LLama 2
-2°O segundo usando GraphLang e LLama 2
-3° terceiro um caso de uso de um LangChain e LLama 2 com produtos inseridos.
+### Descrição
+Neste cenário, são apresentadas sugestões de produtos com base nos interesses do usuário. A API retorna uma lista de sugestões de produtos relacionados às camisetas sociais.
 
-Saida do Codigo 1 acessado na Swagger 
-Json na /docs
-Response body
-Download
+### Acesso
+A saída do código 1 pode ser acessada na Swagger em `/docs`.
+
+### Resposta JSON
+```json
 {
   "sugestoes": [
     "Assistant: Ah",
@@ -26,8 +26,41 @@ Download
     "which one catches your eye? 🤔"
   ]
 }
-Response headers
- content-length: 1407 
- content-type: application/json 
- date: Mon,04 Mar 2024 16:09:24 GMT 
- server: uvicorn 
+
+# Estratégias Avançadas para Escalar esse produto
+
+Neste documento, explorei algumas estratégias desafios de escala e eficiência em seus sistemas.
+
+## Arquitetura de Microserviços
+Empresas como a Netflix adotaram a arquitetura de microserviços para lidar com milhões de solicitações por dia. Isso permite que cada serviço seja escalado independentemente, tornando o sistema mais resiliente e eficiente.
+
+## Balanceamento de Carga
+O Google usa balanceadores de carga para distribuir eficientemente as solicitações entre seus servidores. Isso ajuda a garantir que todos os servidores compartilhem a carga de trabalho, melhorando a eficiência e a disponibilidade do serviço.
+
+## Autoscaling
+O autoscaling é uma estratégia comum usada por empresas como a Amazon para lidar com picos de demanda. Isso permite ajustar dinamicamente a quantidade de recursos com base na demanda do usuário, economizando custos e mantendo um alto nível de desempenho.
+
+## Caching
+O Twitter, por exemplo, usa extensivamente o caching para fornecer atualizações em tempo real para seus usuários. Isso pode melhorar significativamente a experiência do usuário e reduzir a carga no servidor.
+
+## Otimização do Modelo de Linguagem
+Empresas como o OpenAI têm trabalhado em técnicas de otimização para tornar seus modelos de linguagem mais eficientes. Isso pode ser especialmente útil se o Llama 2 se tornar um gargalo.
+
+## Banco de Dados Distribuído
+Grandes empresas de tecnologia, como o Facebook, usam bancos de dados distribuídos para lidar com enormes volumes de dados. Isso pode ser crucial se você estiver lidando com um grande número de clientes.
+
+## Monitoramento e Logging
+Ferramentas de monitoramento e logging são essenciais para manter a saúde do seu sistema. Empresas como a LinkedIn usam essas ferramentas para identificar e resolver problemas rapidamente.
+
+## Sugestões de Implementação
+Considerando a implementação do LangChain e LLama 2, sugere-se:
+- Utilizar modelos auxiliares como o Roberta e Distilbert para otimizar o processamento de linguagem.
+- Implementar um sistema de balanceamento de carga para distribuir eficientemente as solicitações entre os servidores LLama 2.
+- Adotar técnicas de caching para reduzir a carga nos servidores e melhorar a velocidade de resposta.
+- Configurar um sistema de autoscaling para lidar com picos de demanda e otimizar os recursos disponíveis.
+- Utilizar um banco de dados distribuído para armazenar e gerenciar grandes volumes de dados com eficiência.
+- Implementar um robusto sistema de monitoramento e logging para identificar e resolver problemas rapidamente, mantendo a integridade do sistema.
+
+Este conjunto de estratégias pode ajudar a otimizar a implementação do LangChain e LLama 2, tornando-o mais eficiente e escalável para lidar com as demandas dos usuários.
+
+
