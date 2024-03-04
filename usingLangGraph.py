@@ -1,12 +1,19 @@
 # Importando as bibliotecas necessárias
-from fastapi import FastAPI
-from typing import Dict
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import Dict, Optional
 from langchain_community.llms import Ollama, Langgraph
 from langchain.output_parsers import CommaSeparatedListOutputParser
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.chat_models.ollama import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
 from langgraph.graph import StateGraph, END
+
+class Produtos(BaseModel):
+    produtos: Dict[str, str]
+
+class Sugestoes(BaseModel):
+    sugestoes: Optional[Dict[str, str]]
 
 # Inicializando o LLM do Ollama (Llama 2)
 llama2 = Ollama(model="llama2")
@@ -33,22 +40,14 @@ state_graph.set_entry_point("input")
 app = FastAPI(title="Agente de Vendas Inteligente para o Hackathon Bren", version="1.0", description="Sugestões de vendas casadas utilizando LangChain")
 
 # Rota para processar as consultas dos clientes
-@app.post("/sugerir_venda")
-def sugerir_venda(produtos: Dict[str, str] = {
-    "Camiseta Polo": "Azul",
-    "Calça Jeans": "Preta",
-    "Blusa de Frio": "Vermelha",
-    "Vestido Floral": "Multicolorido",
-    "Shorts de Algodão": "Branco",
-    "Regata": "Verde",
-    "Saia Longa": "Preto",
-    "Blazer": "Cinza",
-    "Camisa Social": "Branca",
-    "Jaqueta de Couro": "Preto"
-}):
+@app.post("/sugerir_venda", response_model=Sugestoes)
+def sugerir_venda(produtos: Produtos):
     # Processa os produtos recebidos e gera sugestões de vendas
-    sugestoes = state_graph.invoke(produtos)
-    return {"sugestoes": sugestoes}
+    try:
+        sugestoes = state_graph.invoke(produtos.produtos)
+        return Sugestoes(sugestoes=sugestoes)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Executando o servidor FastAPI
 if __name__ == "__main__":
